@@ -1,7 +1,7 @@
 <h1>All Flats!</h1>
 <ul>
   <% @flats.each do |flat|%>
-    <li><%= link_to flat.name, flat_path(flat) %></li>
+    <li><%= link_to flat.name, flat_path(flat) %> <%= link_to "Delete Flat" , flat_path(flat), data: {turbo_method: :delete, turbo_confirm: "are you sure you want to delete flat"}%></li>
   <%end%>
 </ul>
 
