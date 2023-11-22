@@ -1,10 +1,10 @@
 class FlatsController < ApplicationController
+  before_action :find_flat, only: [:show, :edit, :update]
   def index
     @flats = Flat.all
   end
 
   def show
-    @flat = Flat.find(params[:id])
   end
 
   def new
@@ -20,7 +20,22 @@ class FlatsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @flat.update(flat_params) == true
+      redirect_to flat_path(@flat)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def find_flat
+    @flat = Flat.find(params[:id])
+  end
 
   def flat_params
     params.require(:flat).permit(:name, :address, :description, :price_per_night, :number_of_guests)
